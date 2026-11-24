@@ -245,7 +245,7 @@ export default function Home() {
         </button>
         <div className="storage" aria-label="Bucket storage">
           <div className="storage-head"><span>Storage</span><span>{usage ? Math.round(pct) + "%" : "…"}</span></div>
-          <div className="meter"><span style={{ width: pct + "%" }} /></div>
+          <div className="meter"><span className={pct > 90 ? "full" : ""} style={{ width: pct + "%" }} /></div>
           <div className="storage-foot">
             {usage
               ? <><b>{size(free)}</b> free of {size(usage.limit)}<span className="used">{size(used)} used</span></>
