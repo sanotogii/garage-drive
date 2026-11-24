@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Runs on the phone (Termux). Unpacks the new build and restarts the app.
+# Runs in Termux (over SSH). Unpacks the new build and starts the app inside proot Ubuntu.
+export PATH=/data/data/com.termux/files/usr/bin:$PATH
 cd ~/garage-drive || exit 1
-pkill -f "node app/server.js" 2>/dev/null
+[ -f app.pid ] && kill "$(cat app.pid)" 2>/dev/null
+sleep 1
 rm -rf app && mkdir app && tar xzf garage-drive.tgz -C app
-set -a; . ./.env.local; set +a
-PORT=3000 HOSTNAME=0.0.0.0 nohup node app/server.js > app.log 2>&1 < /dev/null &
-sleep 2
-echo "garage-drive started"
+nohup proot-distro login ubuntu --bind "$HOME/garage-drive:/root/garage-drive" -- bash /root/garage-drive/run.sh > app.log 2>&1 < /dev/null &
+sleep 3
+echo "garage-drive started in proot ubuntu"
