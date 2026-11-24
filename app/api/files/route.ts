@@ -7,9 +7,10 @@ import { s3, BUCKET, denied } from "../../../lib/s3";
 
 export const dynamic = "force-dynamic";
 
-const fail = (e) => Response.json({ error: e.message }, { status: 500 });
+const fail = (e: unknown) =>
+  Response.json({ error: e instanceof Error ? e.message : String(e) }, { status: 500 });
 
-export async function GET(req) {
+export async function GET(req: Request) {
   const d = denied(req);
   if (d) return d;
   const prefix = new URL(req.url).searchParams.get("prefix") || "";
@@ -28,13 +29,14 @@ export async function GET(req) {
   }
 }
 
-export async function POST(req) {
+export async function POST(req: Request) {
   const d = denied(req);
   if (d) return d;
   try {
     const form = await req.formData();
-    const prefix = form.get("prefix") || "";
+    const prefix = String(form.get("prefix") || "");
     for (const f of form.getAll("files")) {
+      if (!(f instanceof File)) continue;
       await s3.send(
         new PutObjectCommand({
           Bucket: BUCKET,
@@ -50,11 +52,11 @@ export async function POST(req) {
   }
 }
 
-export async function DELETE(req) {
+export async function DELETE(req: Request) {
   const d = denied(req);
   if (d) return d;
   try {
-    const key = new URL(req.url).searchParams.get("key");
+    const key = new URL(req.url).searchParams.get("key") ?? "";
     await s3.send(new DeleteObjectCommand({ Bucket: BUCKET, Key: key }));
     return Response.json({ ok: true });
   } catch (e) {
