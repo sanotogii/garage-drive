@@ -1,15 +1,23 @@
-import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { GetObjectCommand, HeadObjectCommand } from "@aws-sdk/client-s3";
 import { s3, BUCKET, denied } from "../../../lib/s3";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
-  const d = denied(req);
-  if (d) return d;
   const params = new URL(req.url).searchParams;
   const key = params.get("key") ?? "";
   const inline = params.get("inline") === "1";
   const range = req.headers.get("range");
+  const d = denied(req);
+  if (d) {
+    // Objects marked public can be shared by link without the app password.
+    let isPublic = false;
+    try {
+      const h = await s3.send(new HeadObjectCommand({ Bucket: BUCKET, Key: key }));
+      isPublic = h.Metadata?.public === "true";
+    } catch {}
+    if (!isPublic) return d;
+  }
   try {
     const r = await s3.send(
       new GetObjectCommand({ Bucket: BUCKET, Key: key, ...(range ? { Range: range } : {}) })
