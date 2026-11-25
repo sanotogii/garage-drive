@@ -2,15 +2,17 @@
 
 A small, self-hosted web file manager for a [Garage](https://garagehq.deuxfleurs.fr/) (or any S3-compatible) bucket. Browse virtual folders, preview files, upload with progress, download, and delete — without ever exposing your S3 credentials to the browser.
 
-Built with Next.js 15 (App Router), React 19, and TypeScript. Styled as a garage workshop: hard shadows, safety-orange accents, and a storage gauge.
+Built with Next.js 15 (App Router), React 19, and TypeScript. Styled like the AWS S3 console: dark top navigation, blue links, and an object detail page with a side preview and properties panel.
 
 ## Features
 
-- Browse S3 prefixes as folders, in grid or list view
+- Browse S3 prefixes as folders, in grid or list view, with cursor-based pagination
+- AWS-style object detail view with inline preview and copyable object/S3 links
+- Per-object public/private toggle; public links work without the app password
 - Drag-and-drop or pick-file uploads with a live progress indicator
 - Inline previews for images, video, audio, PDF, and text files
 - Download (including HTTP range requests for media seeking) and delete
-- Search within the current folder
+- Search within the current page
 - Light/dark theme, remembered in `localStorage`
 - Storage gauge against a 3 GiB quota, refreshed after uploads/deletes
 - Optional HTTP Basic authentication via `APP_PASSWORD`
@@ -58,10 +60,11 @@ All bucket access happens on the server; the browser only calls this app's API r
 
 | Route | Methods | Purpose |
 | --- | --- | --- |
-| `/api/files` | `GET` | List one folder (`prefix`) using S3 `Delimiter: "/"`. |
+| `/api/files` | `GET` | List one folder (`prefix`, `cursor`, `limit`) using S3 `Delimiter: "/"`; with `?key=` return object details. |
 | `/api/files` | `POST` | Multipart upload of one or more files into `prefix`. |
+| `/api/files` | `PATCH` | Set public/private for the object at `?key=` (`{ "public": true }`). |
 | `/api/files` | `DELETE` | Delete the object at `?key=`. |
-| `/api/download` | `GET` | Stream an object. `inline=1` for previews; supports `Range`. |
+| `/api/download` | `GET` | Stream an object. `inline=1` for previews; supports `Range`. Public objects skip the password check. |
 | `/api/usage` | `GET` | Sum all object sizes (paginated) and return used/limit/remaining bytes. |
 
 Shared client setup and the Basic-auth check live in [`lib/s3.ts`](lib/s3.ts).
@@ -72,7 +75,7 @@ app/
   page.tsx              Main file-manager UI (client component)
   globals.css           Theme and layout
   api/
-    files/route.ts      List, upload, delete
+    files/route.ts      List, object details, upload, visibility, delete
     download/route.ts   Stream downloads and previews
     usage/route.ts      Bucket usage for the storage gauge
 lib/s3.ts               S3 client, bucket limit, auth guard
@@ -99,7 +102,8 @@ The included `Jenkinsfile` builds a tarball and deploys it to an Android/Termux 
 
 - Folders are virtual S3 prefixes. A new empty folder does not exist until a file is uploaded into it.
 - Uploads pass through the server and are buffered in memory, so the host needs enough RAM for the largest single upload.
-- Folder listings read the first 1000 objects/prefixes; the usage endpoint paginates the whole bucket.
+- Listings show 50 objects/prefixes per page and page through S3 continuation tokens; the usage endpoint paginates the whole bucket.
+- Garage has no object ACLs, so public/private is stored as the `x-amz-meta-public` metadata flag. Toggling it rewrites the object's metadata with a server-side copy. Public links go through `/api/download` and skip the app password.
 - The 3 GiB quota is display-only — uploads are not blocked if the bucket exceeds it (Garage's own quota, if any, is authoritative).
 - The auth check is HTTP Basic with any username. Put the app behind HTTPS (reverse proxy or tunnel) before exposing it to the internet.
 - Single shared password; there are no per-user accounts or permissions.
