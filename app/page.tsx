@@ -15,19 +15,27 @@ const P = {
   sun: "M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2v-2H2v2zm18 0h2v-2h-2v2zM11 2v2h2V2h-2zm0 18v2h2v-2h-2zM5.99 4.58L4.58 5.99l1.41 1.41 1.41-1.41-1.41-1.41zm12.02 12.02l-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41zM18.01 4.58l-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41zM6.99 16.6l-1.41 1.41 1.41 1.41 1.41-1.41-1.41-1.41z",
   moon: "M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z",
   close: "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z",
+  copy: "M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z",
+  link: "M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z",
+  back: "M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z",
+  lock: "M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z",
+  globe: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z",
+  check: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z",
+  external: "M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z",
+  info: "M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z",
 };
 const Icon = ({ d, color, s = 24 }: { d: string; color?: string; s?: number }) => (
   <svg width={s} height={s} viewBox="0 0 24 24" fill={color || "currentColor"} aria-hidden="true"><path d={d} /></svg>
 );
 
-const COLORS: Record<string, string> = { img: "#188038", pdf: "#d93025", doc: "#1a73e8", vid: "#d93025", zip: "#5f6368" };
+const COLORS: Record<string, string> = { img: "#1d8102", pdf: "#d13212", doc: "#0972d3", vid: "#d13212", zip: "#5f6b7a" };
 const EXT: Record<string, string> = {
   png: "img", jpg: "img", jpeg: "img", gif: "img", webp: "img", svg: "img",
   pdf: "pdf", doc: "doc", docx: "doc", txt: "doc", md: "doc", odt: "doc", xls: "doc", xlsx: "doc", csv: "doc", ppt: "doc", pptx: "doc",
   mp4: "vid", mkv: "vid", mov: "vid", mp3: "vid", zip: "zip", gz: "zip", tar: "zip", rar: "zip", "7z": "zip",
 };
 const ext = (n: string) => n.split(".").pop()!.toLowerCase();
-const fileColor = (n: string) => COLORS[EXT[ext(n)]] || "#5f6368";
+const fileColor = (n: string) => COLORS[EXT[ext(n)]] || "#5f6b7a";
 
 const size = (n: number) => {
   if (n < 1024) return n + " B";
@@ -58,6 +66,15 @@ const TEXT_PREVIEW_MAX = 1024 * 1024;
 
 type FileInfo = { key: string; size: number; modified: string };
 type DriveData = { folders: string[]; files: FileInfo[] };
+type ObjInfo = {
+  key: string;
+  size: number;
+  modified: string;
+  contentType: string;
+  etag: string;
+  public: boolean;
+  bucket: string;
+};
 
 function TextPreview({ file }: { file: FileInfo }) {
   const [text, setText] = useState("");
@@ -87,30 +104,34 @@ function PreviewBody({ file, name }: { file: FileInfo; name: string }) {
   return <div className="pv-none">No preview for this file type.<br /><a href={dl(file.key)}>Download</a></div>;
 }
 
+const PAGE_SIZE = 50;
+
 export default function Home() {
   const [prefix, setPrefix] = useState("");
   const [data, setData] = useState<DriveData>({ folders: [], files: [] });
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [cursor, setCursor] = useState("");
+  const [cursorStack, setCursorStack] = useState<string[]>([]);
+  const [bucket, setBucket] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [drag, setDrag] = useState(false);
   const [view, setView] = useState<"grid" | "list">("grid");
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [preview, setPreview] = useState<FileInfo | null>(null);
   const [q, setQ] = useState("");
   const [menu, setMenu] = useState(false);
   const [usage, setUsage] = useState<{ used: number; limit: number } | null>(null);
   const [progress, setProgress] = useState<number | null>(null);
+  const [selected, setSelected] = useState<FileInfo | null>(null);
+  const [info, setInfo] = useState<ObjInfo | null>(null);
+  const [infoErr, setInfoErr] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [copied, setCopied] = useState("");
   const input = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
   }, []);
-  useEffect(() => {
-    if (!preview) return;
-    const onKey = (e: globalThis.KeyboardEvent) => e.key === "Escape" && setPreview(null);
-    addEventListener("keydown", onKey);
-    return () => removeEventListener("keydown", onKey);
-  }, [preview]);
   function toggleTheme() {
     const next = theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
@@ -120,16 +141,21 @@ export default function Home() {
 
   const load = useCallback(async () => {
     try {
-      const r = await fetch("/api/files?prefix=" + encodeURIComponent(prefix));
+      const qs = new URLSearchParams({ prefix, limit: String(PAGE_SIZE) });
+      if (cursor) qs.set("cursor", cursor);
+      const r = await fetch("/api/files?" + qs);
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || "Could not load files");
       setError("");
-      setData(j);
+      setData({ folders: j.folders || [], files: j.files || [] });
+      setNextCursor(j.nextCursor ?? null);
+      if (j.bucket) setBucket(j.bucket);
     } catch (e) {
       setError((e instanceof Error ? e.message : String(e)) + ". Check your S3 settings in .env.local.");
     }
-  }, [prefix]);
-  useEffect(() => { load(); setQ(""); }, [load]);
+  }, [prefix, cursor]);
+  useEffect(() => { load(); }, [load]);
+  useEffect(() => { setQ(""); }, [prefix]);
 
   const loadUsage = useCallback(async () => {
     try {
@@ -138,6 +164,32 @@ export default function Home() {
     } catch {}
   }, []);
   useEffect(() => { loadUsage(); }, [loadUsage]);
+
+  useEffect(() => {
+    if (!selected) { setInfo(null); setInfoErr(""); return; }
+    setInfo(null);
+    setInfoErr("");
+    let alive = true;
+    fetch("/api/files?key=" + encodeURIComponent(selected.key))
+      .then(async (r) => {
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || "Could not load object details");
+        return j;
+      })
+      .then((j) => alive && setInfo(j))
+      .catch((e: unknown) => alive && setInfoErr(e instanceof Error ? e.message : String(e)));
+    return () => { alive = false; };
+  }, [selected]);
+
+  function openPrefix(p: string) {
+    setSelected(null);
+    setPrefix(p);
+    setCursor("");
+    setCursorStack([]);
+  }
+  function openFile(f: FileInfo) {
+    setSelected(f);
+  }
 
   async function upload(files: FileList | null) {
     if (!files || !files.length) return;
@@ -173,13 +225,43 @@ export default function Home() {
   async function remove(key: string) {
     if (!confirm("Delete " + key.split("/").pop() + "?")) return;
     await fetch("/api/files?key=" + encodeURIComponent(key), { method: "DELETE" });
+    if (selected?.key === key) setSelected(null);
     load();
     loadUsage();
   }
   function newFolder() {
     setMenu(false);
     const n = (prompt("Folder name") || "").replace(/\//g, "").trim();
-    if (n) setPrefix(prefix + n + "/");
+    if (n) openPrefix(prefix + n + "/");
+  }
+
+  async function togglePublic() {
+    if (!selected || !info || saving) return;
+    setSaving(true);
+    setInfoErr("");
+    try {
+      const r = await fetch("/api/files?key=" + encodeURIComponent(selected.key), {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ public: !info.public }),
+      });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error || "Could not change visibility");
+      setInfo({ ...info, public: j.public });
+    } catch (e) {
+      setInfoErr(e instanceof Error ? e.message : String(e));
+    } finally {
+      setSaving(false);
+    }
+  }
+  async function copy(text: string, label: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(label);
+      setTimeout(() => setCopied(""), 1500);
+    } catch {
+      setInfoErr("Could not copy to clipboard.");
+    }
   }
 
   const parts = prefix.split("/").filter(Boolean);
@@ -189,18 +271,39 @@ export default function Home() {
   const files = data.files.filter((f) => match(f.key));
   const empty = !folders.length && !files.length;
   const openKey = (e: ReactKeyboardEvent, f: FileInfo) => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setPreview(f); }
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openFile(f); }
   };
   const used = usage ? Math.min(usage.used, usage.limit) : 0;
   const free = usage ? Math.max(0, usage.limit - usage.used) : 0;
   const pct = usage && usage.limit ? Math.min(100, (usage.used / usage.limit) * 100) : 0;
 
+  const page = cursorStack.length + 1;
+  const total = folders.length + files.length;
+  function prevPage() {
+    const s = [...cursorStack];
+    const c = s.pop() ?? "";
+    setCursorStack(s);
+    setCursor(c);
+  }
+  function nextPage() {
+    if (!nextCursor) return;
+    setCursorStack([...cursorStack, cursor]);
+    setCursor(nextCursor);
+  }
+
+  const origin = typeof window === "undefined" ? "" : window.location.origin;
+  const linkFor = (k: string) => `${origin}/api/download?inline=1&key=${encodeURIComponent(k)}`;
+  const s3uri = (k: string) => `s3://${info?.bucket || bucket}/${k}`;
+
   const Actions = ({ k }: { k: string }) => (
     <span className="acts" onClick={(e) => e.stopPropagation()}>
-      <a href={dl(k)} title="Download" aria-label="Download"><Icon d={P.down} s={20} /></a>
-      <button title="Delete" aria-label="Delete" onClick={() => remove(k)}><Icon d={P.trash} s={20} /></button>
+      <a href={dl(k)} title="Download" aria-label="Download"><Icon d={P.down} s={18} /></a>
+      <button title="Delete" aria-label="Delete" onClick={() => remove(k)}><Icon d={P.trash} s={18} /></button>
     </span>
   );
+
+  const name = selected ? label(selected.key) : "";
+  const isPublic = info?.public ?? false;
 
   return (
     <div
@@ -213,38 +316,42 @@ export default function Home() {
       {drag && <div className="drop">Drop files to upload to {parts.length ? parts[parts.length - 1] : "My Drive"}</div>}
 
       <header>
-        <div className="logo"><Icon d={P.drive} color="var(--accent)" s={34} /><span>Garage Drive</span></div>
+        <div className="logo"><span className="aws">aws</span><span className="svc">Garage Drive</span></div>
         <label className="search">
-          <Icon d={P.search} s={22} />
-          <input placeholder="Search in this folder" value={q} onChange={(e) => setQ(e.target.value)} />
+          <Icon d={P.search} s={20} />
+          <input placeholder="Find objects by prefix" value={q} onChange={(e) => setQ(e.target.value)} />
         </label>
-        <button
-          className="theme"
-          onClick={toggleTheme}
-          title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-        >
-          <Icon d={theme === "dark" ? P.sun : P.moon} s={22} />
-        </button>
+        <div className="head-right">
+          <span className="region">{bucket || "garage"}</span>
+          <button
+            className="theme"
+            onClick={toggleTheme}
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            <Icon d={theme === "dark" ? P.sun : P.moon} s={20} />
+          </button>
+        </div>
       </header>
 
       <aside>
         <div className="newwrap" onClick={(e) => e.stopPropagation()}>
           <button className="new" disabled={busy} onClick={() => setMenu(!menu)}>
-            <Icon d={P.plus} s={24} />{busy ? "Uploading…" : "New"}
+            <Icon d={P.plus} s={20} />{busy ? "Uploading…" : "Upload"}
           </button>
           {menu && (
             <div className="menu">
-              <button onClick={newFolder}>New folder</button>
-              <button onClick={() => { setMenu(false); input.current?.click(); }}>File upload</button>
+              <button onClick={newFolder}>Create folder</button>
+              <button onClick={() => { setMenu(false); input.current?.click(); }}>Upload files</button>
             </div>
           )}
         </div>
-        <button className={"nav" + (!prefix ? " on" : "")} onClick={() => setPrefix("")}>
-          <Icon d={P.drive} s={20} />My Drive
+        <p className="side-title">Buckets</p>
+        <button className={"nav" + (!prefix && !selected ? " on" : "")} onClick={() => openPrefix("")}>
+          <Icon d={P.drive} s={18} />My Drive
         </button>
         <div className="storage" aria-label="Bucket storage">
-          <div className="storage-head"><span>Storage</span><span>{usage ? Math.round(pct) + "%" : "…"}</span></div>
+          <div className="storage-head"><span>Bucket quota</span><span>{usage ? Math.round(pct) + "%" : "…"}</span></div>
           <div className="meter"><span className={pct > 90 ? "full" : ""} style={{ width: pct + "%" }} /></div>
           <div className="storage-foot">
             {usage
@@ -259,59 +366,159 @@ export default function Home() {
       <main>
         <div className="top">
           <nav className="crumbs">
-            <button onClick={() => setPrefix("")}>My Drive</button>
+            <button onClick={() => openPrefix("")}>My Drive</button>
             {parts.map((p, i) => (
-              <span key={i}>›<button onClick={() => setPrefix(parts.slice(0, i + 1).join("/") + "/")}>{p}</button></span>
+              <span key={i}>›<button onClick={() => openPrefix(parts.slice(0, i + 1).join("/") + "/")}>{p}</button></span>
             ))}
+            {selected && <span>›<b className="cur">{name}</b></span>}
           </nav>
-          <div className="toggle">
-            <button className={view === "list" ? "on" : ""} onClick={() => setView("list")} aria-label="List view"><Icon d={P.list} s={20} /></button>
-            <button className={view === "grid" ? "on" : ""} onClick={() => setView("grid")} aria-label="Grid view"><Icon d={P.grid} s={20} /></button>
-          </div>
+          {!selected && (
+            <div className="toggle">
+              <button className={view === "list" ? "on" : ""} onClick={() => setView("list")} aria-label="List view"><Icon d={P.list} s={18} /></button>
+              <button className={view === "grid" ? "on" : ""} onClick={() => setView("grid")} aria-label="Grid view"><Icon d={P.grid} s={18} /></button>
+            </div>
+          )}
         </div>
 
         {error && <p className="error">{error}</p>}
-        {empty && !error && <div className="empty">{q ? "No matches in this folder." : "This folder is empty. Drop files here or use New."}</div>}
 
-        {view === "grid" ? (
-          <>
-            {!!folders.length && <h2>Folders</h2>}
-            <div className="grid small">
-              {folders.map((f) => (
-                <button className="chip" key={f} onClick={() => setPrefix(f)}>
-                  <Icon d={P.folder} color="var(--muted)" /><span>{label(f)}</span>
-                </button>
-              ))}
+        {selected ? (
+          <div className="detail">
+            <div className="obj-head">
+              <button className="back" onClick={() => setSelected(null)} aria-label="Back to files"><Icon d={P.back} s={20} /></button>
+              <div className="obj-title">
+                <div className="obj-kind"><Icon d={P.file} color={fileColor(selected.key)} s={20} />Object</div>
+                <h1>{name}</h1>
+              </div>
+              <div className="obj-actions">
+                <a className="btn" href={dl(selected.key)}><Icon d={P.down} s={18} />Download</a>
+                <button className="btn danger" onClick={() => remove(selected.key)}><Icon d={P.trash} s={18} />Delete</button>
+              </div>
             </div>
-            {!!files.length && <h2>Files</h2>}
-            <div className="grid">
-              {files.map((f) => (
-                <div className="card" key={f.key} title={f.key} role="button" tabIndex={0}
-                  onClick={() => setPreview(f)} onKeyDown={(e) => openKey(e, f)}>
-                  <div className="thumb"><Icon d={P.file} color={fileColor(f.key)} s={56} /><Actions k={f.key} /></div>
-                  <div className="cap"><Icon d={P.file} color={fileColor(f.key)} s={18} /><span>{label(f.key)}</span></div>
+
+            <div className="obj-grid">
+              <section className="obj-preview">
+                <div className="obj-preview-head">
+                  <span>Preview</span>
+                  <a href={linkFor(selected.key)} target="_blank" rel="noreferrer"><Icon d={P.external} s={16} />Open</a>
                 </div>
-              ))}
+                <div className="pv-body"><PreviewBody file={selected} name={name} /></div>
+              </section>
+
+              <aside className="obj-side">
+                <h3>Object overview</h3>
+                {infoErr && <p className="error small">{infoErr}</p>}
+                <dl className="kv">
+                  <dt>Key</dt><dd className="mono wrap">{selected.key}</dd>
+                  <dt>Size</dt><dd className="mono">{size(info?.size ?? selected.size)}</dd>
+                  <dt>Type</dt><dd className="mono">{info?.contentType ?? "…"}</dd>
+                  <dt>Last modified</dt><dd className="mono">{new Date(info?.modified ?? selected.modified).toLocaleString()}</dd>
+                  <dt>ETag</dt><dd className="mono wrap">{info?.etag || "…"}</dd>
+                </dl>
+
+                <h3>Permissions</h3>
+                <div className="perm">
+                  <div className="perm-state">
+                    <span className={"perm-icon" + (isPublic ? " pub" : "")}>
+                      <Icon d={isPublic ? P.globe : P.lock} s={18} />
+                    </span>
+                    <div>
+                      <b>{isPublic ? "Public" : "Private"}</b>
+                      <p>{isPublic ? "Anyone with the link can view this object." : "Only people with the app password can access it."}</p>
+                    </div>
+                  </div>
+                  <button
+                    role="switch"
+                    aria-checked={isPublic}
+                    aria-label="Toggle public access"
+                    className={"switch" + (isPublic ? " on" : "")}
+                    onClick={togglePublic}
+                    disabled={!info || saving}
+                  >
+                    <span />
+                  </button>
+                </div>
+
+                <h3>Object URL</h3>
+                <div className="linkrow">
+                  <input readOnly value={linkFor(selected.key)} onFocus={(e) => e.target.select()} />
+                  <button onClick={() => copy(linkFor(selected.key), "url")} title="Copy link" aria-label="Copy link">
+                    <Icon d={copied === "url" ? P.check : P.copy} s={18} />
+                  </button>
+                </div>
+                <p className="hint">
+                  {isPublic
+                    ? "Share this link. It works without the app password."
+                    : "This link needs the app password until the object is made public."}
+                </p>
+
+                <h3>S3 URI</h3>
+                <div className="linkrow">
+                  <input readOnly value={s3uri(selected.key)} onFocus={(e) => e.target.select()} />
+                  <button onClick={() => copy(s3uri(selected.key), "s3")} title="Copy S3 URI" aria-label="Copy S3 URI">
+                    <Icon d={copied === "s3" ? P.check : P.copy} s={18} />
+                  </button>
+                </div>
+              </aside>
             </div>
-          </>
-        ) : (
-          <div className="table">
-            <div className="tr th"><span>Name</span><span>Size</span><span>Modified</span><span /></div>
-            {folders.map((f) => (
-              <div className="tr" key={f}>
-                <button className="nm" onClick={() => setPrefix(f)}><Icon d={P.folder} color="var(--muted)" s={22} />{label(f)}</button>
-                <span className="m">–</span><span className="m">–</span><span />
-              </div>
-            ))}
-            {files.map((f) => (
-              <div className="tr" key={f.key}>
-                <button className="nm" onClick={() => setPreview(f)}><Icon d={P.file} color={fileColor(f.key)} s={22} />{label(f.key)}</button>
-                <span className="m">{size(f.size)}</span>
-                <span className="m">{new Date(f.modified).toLocaleDateString()}</span>
-                <Actions k={f.key} />
-              </div>
-            ))}
           </div>
+        ) : (
+          <>
+            {empty && !error && <div className="empty">{q ? "No matches on this page." : "This folder is empty. Drop files here or use Upload."}</div>}
+
+            {view === "grid" ? (
+              <>
+                {!!folders.length && <h2>Folders</h2>}
+                <div className="grid small">
+                  {folders.map((f) => (
+                    <button className="chip" key={f} onClick={() => openPrefix(f)}>
+                      <Icon d={P.folder} color="var(--aws-blue)" s={22} /><span>{label(f)}</span>
+                    </button>
+                  ))}
+                </div>
+                {!!files.length && <h2>Objects</h2>}
+                <div className="grid">
+                  {files.map((f) => (
+                    <div className="card" key={f.key} title={f.key} role="button" tabIndex={0}
+                      onClick={() => openFile(f)} onKeyDown={(e) => openKey(e, f)}>
+                      <div className="thumb"><Icon d={P.file} color={fileColor(f.key)} s={48} /><Actions k={f.key} /></div>
+                      <div className="cap"><Icon d={P.file} color={fileColor(f.key)} s={16} /><span>{label(f.key)}</span></div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="table">
+                <div className="tr th"><span>Name</span><span>Size</span><span>Last modified</span><span /></div>
+                {folders.map((f) => (
+                  <div className="tr" key={f}>
+                    <button className="nm" onClick={() => openPrefix(f)}><Icon d={P.folder} color="var(--aws-blue)" s={20} />{label(f)}</button>
+                    <span className="m">–</span><span className="m">–</span><span />
+                  </div>
+                ))}
+                {files.map((f) => (
+                  <div className="tr" key={f.key}>
+                    <button className="nm" onClick={() => openFile(f)}><Icon d={P.file} color={fileColor(f.key)} s={20} />{label(f.key)}</button>
+                    <span className="m">{size(f.size)}</span>
+                    <span className="m">{new Date(f.modified).toLocaleDateString()}</span>
+                    <Actions k={f.key} />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {(total > 0 || page > 1 || nextCursor) && (
+              <div className="pager">
+                <span className="pager-info">
+                  Page {page} · {total} {total === 1 ? "item" : "items"} this page
+                </span>
+                <div className="pager-btns">
+                  <button disabled={page <= 1} onClick={prevPage}>Previous</button>
+                  <button disabled={!nextCursor} onClick={nextPage}>Next</button>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </main>
 
@@ -319,25 +526,11 @@ export default function Home() {
         <div className="uploading" role="status" aria-live="polite">
           <div className="up-head">
             <Icon d={P.plus} s={18} />
-            {progress === 100 ? "Parking it" : "Uploading"}
+            {progress === 100 ? "Finishing" : "Uploading"}
             <span className="up-pct">{progress ?? 0}%</span>
           </div>
           <div className="upbar"><span style={{ width: Math.max(progress ?? 0, 6) + "%" }} /></div>
-          <div className="up-note">Dropping into {parts.length ? parts[parts.length - 1] : "My Drive"}</div>
-        </div>
-      )}
-
-      {preview && (
-        <div className="preview" onClick={() => setPreview(null)}>
-          <div className="pv" role="dialog" aria-modal="true" aria-label={label(preview.key)} onClick={(e) => e.stopPropagation()}>
-            <div className="pv-top">
-              <Icon d={P.file} color={fileColor(preview.key)} s={20} />
-              <span className="name">{label(preview.key)}</span>
-              <a href={dl(preview.key)} title="Download" aria-label="Download"><Icon d={P.down} s={20} /></a>
-              <button onClick={() => setPreview(null)} title="Close" aria-label="Close"><Icon d={P.close} s={22} /></button>
-            </div>
-            <div className="pv-body"><PreviewBody file={preview} name={label(preview.key)} /></div>
-          </div>
+          <div className="up-note">Uploading to {parts.length ? parts[parts.length - 1] : "My Drive"}</div>
         </div>
       )}
     </div>
